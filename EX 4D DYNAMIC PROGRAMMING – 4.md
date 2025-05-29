@@ -3,46 +3,50 @@
 ## AIM:
 To find the minimum number of operations to convert str1 to str2 using Naive recursive method.
 
-
-
-
-
 ## Algorithm
-1. If one string is empty, return the length of the other string.
-2. If the last characters of both strings match, the cost is 0; else, cost is 1.
-3. Recursively calculate three options: insert, delete, or replace a character.
-4. Take the minimum of the three operations plus the current cost.
-5. Final result is the minimum number of edits needed to convert one string into another.  
+1. If one of the strings is empty, the edit distance is the length of the other string (all insertions or deletions).
+2. If the last characters of both strings match, no additional cost is needed for this position, so set count = 0.
+3. If they do not match, set count = 1 to account for the replacement cost.
+4. Return the minimum of the following three operations:
+   - Insertion: Edit distance after inserting the last character of t into s.
+   - Deletion: Edit distance after deleting the last character of s.
+   - Replacement: Edit distance after replacing the last character if the characters differ.
+5. Return the minimum cost from the above operations, including the current count if applicable.
+
 
 ## Program:
 ```
+/*
 Program to implement to find the minimum number of operations to convert str1 to str2 using Naive recursive method
-Developed by: S.SHANMATHI
-Register Number: 212222100049
-```
-```PYTHON
+*/
+
 def LD(s, t):
-    
-    if s == "":
+    #########  Add your code here ###########
+    if s=="":
         return len(t)
-    if t == "":
+    if t=="":
         return len(s)
-    if s[-1] == t[-1]:
-        cost = 0
+    if s[-1]==t[-1]:
+        count=0
     else:
-        cost = 1
-    res = min([LD(s[:-1], t)+1, LD(s, t[:-1])+1, LD(s[:-1], t[:-1]) + cost])
+        count=1
+    res=min([LD(s[:-1],t)+1,LD(s,t[:-1])+1,LD(s[:-1],t[:-1])+count])
     return res
+    
+    
 str1=input()
 str2=input()
-print('Edit Distance',LD(str1,str2))
+print('No. of Operations required :',LD(str1,str2))
+
+/*
+Developed by: Sandhya B N
+Register Number: 212222040144
+*/
 ```
 
 ## Output:
-![image](https://github.com/user-attachments/assets/adc74bd7-29a4-4694-9e5e-7101e258dc5e)
 
-
-
+![image](https://github.com/user-attachments/assets/98085c84-83c8-40d4-9aed-3f606611ef30)
 
 ## Result:
 Thus the program was executed successfully for finding edit distance between two strings.

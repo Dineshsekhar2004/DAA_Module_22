@@ -6,44 +6,46 @@ To find the longest string (or strings) that is a substring (or are substrings) 
 
 
 ## Algorithm
-1. Create a table lookup to store lengths of matching characters.
-2. Compare each character of X with each character of Y.
-3. If characters match, update the lookup value and track the maximum length and ending position.
-4. After filling the table, the longest common substring is found at the tracked position.
-5. Extract and print the substring from X using the recorded indices.  
+1. Create a 2D table dp of size (m+1) x (n+1), where m is the length of the first string and n is the length of the second string. Set all elements to 0 initially.
+2. Track the maximum length of the common substring (max) and its ending position (end).
+3. For each character pair (x[i-1], y[j-1]) in the two strings, if they match, update dp[i][j] to dp[i-1][j-1] + 1.
+4. If this new length is greater than the current max, update max and end.
+5. Use the recorded end and max values to slice the longest common substring from the original string.
 
 ## Program:
 ```
+/*
 Program to implement the longest common substring problem
-Developed by: S.SHANMATHI
-Register Number: 212222100049
-```
-```PYTHON
-def LCS(X, Y, m, n):
-    maxLength = 0
-    endingIndex = m
-    lookup = [[0 for x in range(n + 1)] for y in range(m + 1)]
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            if X[i - 1] == Y[j - 1]:
-                lookup[i][j] = lookup[i - 1][j - 1] + 1
-                if lookup[i][j] > maxLength:
-                    maxLength = lookup[i][j]
-                    endingIndex = i
-    return X[endingIndex - maxLength: endingIndex]
+*/
 
-X = input()
-Y = input()
-m = len(X)
-n = len(Y)
-print('The longest common substring is', LCS(X, Y, m, n))
+def lcs(x,y):
+    m=len(x)
+    n=len(y)
+    max=0
+    end=m
+    dp=[[0 for i in range(n+1)] for j in range(m+1)]
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            if x[i-1]==y[j-1]:
+                dp[i][j]=dp[i-1][j-1]+1
+                if dp[i][j]>max:
+                    max=dp[i][j]
+                    end=i
+    return x[end-max:end]
+
+s1=input()
+s2=input()
+print("The longest common substring is",(lcs(s1,s2)))
+
+/*
+Developed by: Sandhya B N
+Register Number: 212222040144
+*/
 ```
 
 ## Output:
-![image](https://github.com/user-attachments/assets/69731d23-7375-4146-9b23-51e606c7cd61)
 
-
-
+![image](https://github.com/user-attachments/assets/aada1624-d79b-498c-bac8-d6e1806ced26)
 
 ## Result:
 Thus the program was executed successfully for finding the longest common substring .
